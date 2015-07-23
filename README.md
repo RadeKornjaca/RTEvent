@@ -1,0 +1,1 @@
+<b>RTEvent</b> is a Rails application for publishing and overview of events.
