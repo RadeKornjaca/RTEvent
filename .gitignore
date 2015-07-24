@@ -16,4 +16,4 @@
 /tmp
 
 #ignore stupid gedit temp files
-**/.*~
+*~
