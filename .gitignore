@@ -15,5 +15,5 @@
 /log/*.log
 /tmp
 
-#ignore stupid gedit temp files
-*~
+#should ignore stupid gedit temp files
+**/*~

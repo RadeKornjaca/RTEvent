@@ -1,0 +1,20 @@
+
+
+<h2>Hot events</h2>
+
+<table>
+	<tbody>
+		<% hot_events.each do |event| %>
+			<tr>
+				<td><%= event.title %></td>
+				<td><%= event.starts_at %></td>
+				<td><%= event.place.place_name %></td>
+				<td><%= event.description %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+
+

@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :place %><br>
-    <%= f.text_field :place %>
+    <%= f.select :place_id, options_from_collection_for_select(Place.all, :id, :place_name) %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
