@@ -1,10 +1,14 @@
 Rtevent::Application.routes.draw do
-  devise_for :users
-  resources :events
+  get 'comments/:event_id' => 'comments#event_comments', as: :event_comments
+  resources :comments
 
+  devise_for :users
+  
+  resources :events
   resources :places
 
   get '/token' => 'home#token', as: :token
+  get '/about' => 'home#about', as: :about
   resources :home, only: :index
   
 

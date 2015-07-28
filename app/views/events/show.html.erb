@@ -22,3 +22,36 @@
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
+
+
+<div class="row" ng-app="commentMaintainer">
+    <div class="col-md-8" ng-controller="CommentController" ng-init="init(<%= @event.id %>)">
+		    <div class="page-header">
+		      <h1><small class="pull-right">{{ numberOfComments }} comments</small> Comments </h1>
+		    </div> 
+		     <div class="comments-list">
+		         <div class="media" ng-repeat="comment in comments">
+		              <div class="media-body">
+		                  
+		                <h4 class="media-heading user_name">{{ comment.user_id }}</h4>
+		                <p>{{ comment.content }}</p>
+		                
+		                <br />
+		              </div>
+		         </div>
+		     </div>
+		     <br />
+      <div class="col-md-8" >
+			<div class="widget-area no-padding blank">
+				<div class="status-upload">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<textarea class="form-control" rows="7" ng-model="commentText"></textarea>
+						</div>
+						<button type="button" class="btn btn-primary" ng-click="comment('<%= current_user.id %>', '<%= @event.id %>'); refreshStream()">Leave a comment</button>
+					</form>
+				</div><!-- Status Upload  -->
+			</div><!-- Widget Area -->
+		</div>
+   </div>
+</div>        

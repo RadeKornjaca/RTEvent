@@ -53,4 +53,9 @@ gem 'bootstrap-sass', '~> 3.3.5'
 #Devise for authentication
 gem 'devise'
 
+#Bower gem
+gem 'bower-rails'
+
+#Turbolinks and JQuery
+gem 'jquery-turbolinks'
 

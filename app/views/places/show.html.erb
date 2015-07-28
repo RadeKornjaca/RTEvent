@@ -12,3 +12,61 @@
 
 <%= link_to 'Edit', edit_place_path(@place) %> |
 <%= link_to 'Back', places_path %>
+<br />
+<br />
+
+<h2>Incoming events</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Starts at</th>
+      <th>Place</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @place.events.select do |event| if event.starts_at >= DateTime.now %>
+      <tr>
+        <td><%= event.title %></td>
+        <td><%= event.starts_at %></td>
+        <td><%= event.place.place_name %></td>
+        <td><%= event.description %></td>
+        <td><%= link_to 'Show', event %></td>
+      </tr>
+      <%end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+<br />
+
+<h2>Past events</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Starts at</th>
+      <th>Place</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @place.events.select do |event| if event.starts_at < DateTime.now %>
+      <tr>
+        <td><%= event.title %></td>
+        <td><%= event.starts_at %></td>
+        <td><%= event.place.place_name %></td>
+        <td><%= event.description %></td>
+        <td><%= link_to 'Show', event %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

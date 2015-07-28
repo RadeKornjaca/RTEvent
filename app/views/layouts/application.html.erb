@@ -21,17 +21,25 @@
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
+						<% if user_signed_in? -%>
+							<li>
+								<%= link_to 'Events', events_path %>
+							</li>
+							<li>
+								<%= link_to 'Places', places_path %>
+							</li>
+						<% end %>
 						<li>
-							<a href="#">Link</a>
+							<%= link_to 'About', about_path %>
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 							<% unless user_signed_in? -%>
 								<li>
-  								<%= link_to 'Sign up', new_user_registration_path %>
-  							</li>
-  							<li>
-  								<%= link_to 'Login', new_user_session_path %>
+  									<%= link_to 'Sign up', new_user_registration_path %>
+  								</li>
+  								<li>
+  									<%= link_to 'Login', new_user_session_path %>
 								</li>
 							<% else -%>
 								<li>
@@ -39,7 +47,7 @@
 								</li>
 							<% end -%>
 							<li>
-								<span>&nbsp;&nbsp;&nbsp;</span>
+								<span>&nbsp;&nbsp;&nbsp;</span>		<!-- I'm a terrible person -->
 							</li>
 					</ul>
 				</div>
