@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
 	def event_comments
 		ActiveRecord::Base.include_root_in_json = false
 		id = params[:event_id]
-		result = {'comments' => Comment.where(event_id: id).select(:id, :content, :created_at, :user_id).sort{|c1, c2| c2.created_at <=> c1.created_at}}.as_json(:include => {:user => {:only => [:email]}}).to_json
+		result = {'comments' => Comment.where(event_id: id).select(:id, :content, :created_at, :user_id).sort{|c1, c2| c2.created_at <=> c1.created_at}}.as_json(:include => {:user => {:only => [:username]}}).to_json
 		send_data result
 	end	
 
