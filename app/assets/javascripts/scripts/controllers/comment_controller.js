@@ -7,7 +7,6 @@
 		}
 		
 		$scope.comment = function(userId, eventId) {
-			console.log($scope.commentText)
 			var comment = {
 				user_id : userId,
 				event_id : eventId,

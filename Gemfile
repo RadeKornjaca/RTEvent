@@ -59,3 +59,6 @@ gem 'bower-rails'
 #Turbolinks and JQuery
 gem 'jquery-turbolinks'
 
+#Kaminari for pagination
+gem 'kaminari'
+

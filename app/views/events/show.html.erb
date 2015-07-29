@@ -7,7 +7,11 @@
 
 <p>
   <strong>Starts at:</strong>
-  <%= @event.starts_at %>
+  <%- unless @event.starts_at.to_date == Date.today %>
+  	<%= @event.starts_at.strftime("%A, %B %d, %Y") %>
+  <%- else %>
+  	<%= distance_of_time_in_words(Time.now, @event.starts_at) %>
+  <% end %>
 </p>
 
 <p>
@@ -33,7 +37,7 @@
 		         <div class="media" ng-repeat="comment in comments">
 		              <div class="media-body">
 		                  
-		                <h4 class="media-heading user_name">{{ comment.user_id }}</h4>
+		                <h4 class="media-heading user_name">{{ comment.user.email }}</h4>
 		                <p>{{ comment.content }}</p>
 		                
 		                <br />

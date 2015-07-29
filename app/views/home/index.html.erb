@@ -1,13 +1,19 @@
 
 
 <h2>Hot events</h2>
+<br />
 
 <table class="table table-striped">
 	<tbody>
 		<% hot_events.each do |event| %>
 			<tr>
 				<td><%= event.title %></td>
-				<td><%= event.starts_at %></td>
+				<td>  <%- unless event.starts_at.to_date == Date.today %>
+  							<%= event.starts_at.strftime("%A, %B %d, %Y") %>
+  						<%- else %>
+  							<%= distance_of_time_in_words(Time.now, event.starts_at) %>
+  						<% end %>
+  			</td>
 				<td><%= event.place.place_name %></td>
 				<td><%= event.description %></td>
 			</tr>
