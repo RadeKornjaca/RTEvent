@@ -2,8 +2,7 @@
 	var CommentController = function($scope, Comment) {
 		
 		$scope.init = function(eventId) {
-			$scope.eventId = eventId
-			refreshStream()
+			refreshStream(eventId)
 		}
 		
 		$scope.comment = function(userId, eventId) {
@@ -13,17 +12,17 @@
 				content : $scope.commentText
 			}
 			
-			var newComment = new Comment(comment)
+			var newComment = new Comment({comment: comment})
 			
-			newComment.$save()
+			newComment.$save({event_id : eventId})
 			
 			$scope.commentText = ""
-			refreshStream()
+			refreshStream(eventId)
 		}
 		
 		
-		var refreshStream = function() {
-			Comment.get({event_id : $scope.eventId}, function(response){
+		var refreshStream = function(eventId) {
+			Comment.get({event_id : eventId}, function(response){
 				$scope.comments = response.comments
 				$scope.numberOfComments = response.comments.length
 			})		

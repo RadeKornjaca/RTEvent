@@ -1,7 +1,7 @@
 
 (function() {
 	var Comment = function ($resource) {
-		return $resource('/comments/:event_id.json');
+		return $resource('/events/:event_id/comments.json');
 	}
 
 	var app = angular.module('commentMaintainer');

@@ -47,27 +47,30 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-#Simple form
+# Simple form
 gem 'simple_form'
 
-#Bootstrap-sass
+# Bootstrap-sass
 gem 'bootstrap-sass', '~> 3.3.5'
 
-#Devise for authentication
+# Devise for authentication
 gem 'devise'
 
-#Bower gem
+# Bower gem
 gem 'bower-rails'
 
-#Turbolinks and JQuery
+# Turbolinks and JQuery
 gem 'jquery-turbolinks'
 
-#Kaminari for pagination
+# Kaminari for pagination
 gem 'kaminari'
 
-#For Heroku deploy
+# For Heroku deploy
 gem 'rails_12factor'
 
-
+# RSpec
+group :development, :test do
+  gem 'rspec-rails'
+end
 
 
