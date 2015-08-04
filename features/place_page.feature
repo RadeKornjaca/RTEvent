@@ -9,4 +9,11 @@ Feature: Place Page
 	Scenario: Viewing application's Place page
 		Given There's a single place
 		When I am on the places page
-		Then I should see details about that "Alternativa" 
+		Then I should see details about that "Alternativa"
+
+	Scenario: Adding a new place
+		When User is on the places page
+		And He chooses to add new place
+		Given User types informations about place
+		When He creates a new place
+		Then He should see details about newly added place
