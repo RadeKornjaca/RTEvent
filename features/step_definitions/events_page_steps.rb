@@ -12,8 +12,8 @@ end
 
 Then(/^I should see details about that event titled "(.*?)"$/) do |event_title|
 	@event = Event.find_by_title(event_title)
-  expect(page).to have_content(@event.title)
-  expect(page).to have_content(@event.description)
+	expect(page).to have_content(@event.title)
+	expect(page).to have_content(@event.description)
 end
 
 
@@ -31,7 +31,7 @@ Then(/^I should see detailed stuff about event "(.*?)"$/) do |title|
 end
 
 Given(/^There are a few events$/) do
-  @events = []
+	@events = []
 	@events << FactoryGirl.create(:event)
 
 	random_user = User.all[0]				# FIXME: hard coded
@@ -41,7 +41,7 @@ Given(/^There are a few events$/) do
 end
 
 Then(/^Events should be sorted in ascending order$/) do
-  ( Event.all.sort == @events ).should be true
+	( Event.all.sort == @events ).should be true
 end
 
 

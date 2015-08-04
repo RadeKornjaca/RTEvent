@@ -20,3 +20,8 @@ Feature: Events Page
 		Given There are a few events
 		When I am on the events page
 		Then Events should be sorted in ascending order
+
+	Scenario: User makes new event
+		Given User makes new event		
+		When User is on a new event page
+		Then New event should be seen with other events
