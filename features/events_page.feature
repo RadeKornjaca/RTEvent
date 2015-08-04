@@ -2,9 +2,9 @@
 
 Feature: Events Page
 
-	Background: Signing up and logging in
+	Background: User is signed and logged in
 		Given user is signed in with username "zika", email "zikin.mejl@gmail.com" and password "zikazika"
-		And User "zika" is logged in
+		And User is logged in with email "zikin.mejl@gmail.com" and password "zikazika"
 
 	Scenario: Viewing application's Events page
 		Given There's a single event
@@ -15,3 +15,8 @@ Feature: Events Page
 		Given There's a single event
 		When I am on that event's page
 		Then I should see detailed stuff about event "Zurka"
+
+	Scenario: All events in ascending order
+		Given There are a few events
+		When I am on the events page
+		Then Events should be sorted in ascending order
