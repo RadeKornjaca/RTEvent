@@ -27,4 +27,4 @@ Feature: Events Page
 		Then User should be redirected to a new event page
 		Given User fills up information about new event
 		And Chooses to add newly created event
-		Then he should be redirected to detailed view of new event
+		Then He should see details about newly added event

@@ -1,7 +1,7 @@
 # features/step_definitions/signup_login_steps.rb
 
 
-Given(/^user is signed in with username "(.*?)", email "(.*?)" and password "(.*?)"$/) do |username, email, password|
+Given(/^User is signed in with username "(.*?)", email "(.*?)" and password "(.*?)"$/) do |username, email, password|
 	@user = FactoryGirl.create(:user, email: email, username: username, password: password)
 end
 

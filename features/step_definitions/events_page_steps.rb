@@ -80,8 +80,9 @@ Given(/^Chooses to add newly created event$/) do
 	click_button 'Create Event' 
 end
 
-Then(/^he should be redirected to detailed view of new event$/) do
-	#TODO
+Then(/^He should see details about newly added event$/) do
+	expect(page).to have_content(@event.title)
+	expect(page).to have_content(@event.description)
 end
 
 
