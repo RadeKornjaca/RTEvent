@@ -4,7 +4,7 @@ Feature: Events Page
 
 	Background: User is signed and logged in
 		Given user is signed in with username "zika", email "zikin.mejl@gmail.com" and password "zikazika"
-		And User is logged in with email "zikin.mejl@gmail.com" and password "zikazika"
+		And user is logged in with email "zikin.mejl@gmail.com" and password "zikazika"
 
 	Scenario: Viewing application's Events page
 		Given There's a single event

@@ -13,7 +13,7 @@
 
   <tbody>
     <% @places.each do |place| %>
-      <tr>
+      <tr id="<%= 'place_' + place.id.to_s %>">
         <td><%= place.place_name %></td>
         <td><%= place.address %></td>
         <td><%= link_to 'Show', place %></td>
