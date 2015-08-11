@@ -72,6 +72,7 @@ gem 'rails_12factor'
 group :development, :test do
   gem 'rspec-rails'
 	gem 'factory_girl_rails'
+	gem 'byebug'
 end
 
 group :test do
@@ -79,6 +80,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
 	gem 'faker'
+  gem 'selenium-webdriver'
 end
 
 

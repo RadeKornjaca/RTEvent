@@ -3,7 +3,10 @@
 Given(/^there are places$/) do
   @places = []	
   4.times do
-    @places << FactoryGirl.create(:place, :place_name => Faker::Name.title, :address => Faker::Address.street_address)
+    @places << FactoryGirl.create(:place, 
+                                  :place_name => Faker::Name.title, 
+                                  :address => Faker::Address.street_address
+                                 )
   end
 end
 
@@ -20,7 +23,10 @@ When(/^he chooses to add new place$/) do
 end
 
 Given(/^user types informations about place$/) do
-  @place = FactoryGirl.build(:place, :place_name => Faker::Name.title, :address => Faker::Address.street_address)
+  @place = FactoryGirl.build(:place, 
+                             :place_name => Faker::Name.title,
+                             :address => Faker::Address.street_address
+                            )
   fill_in "place_place_name", :with => @place.place_name
   fill_in "place_address", :with => @place.address
 end
@@ -34,26 +40,40 @@ Then(/^he should see details about that place$/) do
   expect(page).to have_content(@place.address)
 end
 
-When(/^he chooses to edit a place$/) do
-  within("tr#place_" << @places[0].id.to_s) do
-    click_link 'Edit'
+When(/^he chooses to "(.*?)" a place$/) do |option|
+  within("tr#place_" << @place.id.to_s) do
+    click_link option
   end
 end
 
 Then(/^he should have form fields filled with old informations$/) do
-  expect(current_path).to eq('/places/' << @places[0].id.to_s << '/edit') 
+  expect(current_path).to eq('/places/' << @place.id.to_s << '/edit') 
  
- # expect(page).to have_content(@places[0].place_name)
- # expect(page).to have_content(@places[0].address)
+  expect(find_field("place_place_name").value).to have_content(@place.place_name)
+  expect(find_field("place_address").value).to have_content(@place.address)
 
 end
 
 When(/^he updates that place with new informations$/) do
-  @place = FactoryGirl.create(:place, :place_name => Faker::Company.name, :address => Faker::Address.street_address)
+  @place = FactoryGirl.create(:place,
+                              :place_name => Faker::Company.name, 
+                              :address => Faker::Address.street_address
+                             )
   
   fill_in "place_place_name", :with => @place.place_name
   fill_in "place_address", :with => @place.address  
   
   click_button 'Update Place'
 end
+
+Then(/^place shouldn't be in database anymore$/) do
+  sleep(1)                                          # otherwise, line bellow will fail even when it shouldn't
+  expect(Place.where(:id => @place.id).blank?).to eq true
+end
+
+
+
+
+
+
 

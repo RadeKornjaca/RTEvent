@@ -1,89 +1,132 @@
-# features/step_definitions/event_page_steps.rb
 
-And(/^There's a single event$/) do
-	@event = FactoryGirl.create(:event)
+When(/^there is a place$/) do
+	@random_place = FactoryGirl.create(:place, place_name: Faker::Company.name, address: Faker::Address.street_address)
 end
 
-When(/^I am on the events page$/) do
-	visit '/events'
+And(/^there's a single event$/) do
+	fake_time = Faker::Time.between(DateTime.now - 7, DateTime.now + 7, :all)
+
+	@event = FactoryGirl.create(:event, 
+              :title => Faker::Name.title, 
+              :starts_at => fake_time,
+              :place => @random_place, 
+              :user => @user,
+              :description => Faker::Lorem.sentence
+           )
 end
 
-Then(/^I should see details about that event titled "(.*?)"$/) do |event_title|
-	@event = Event.find_by_title(event_title)
+When(/^user is on the events page$/) do
+	visit events_path
+end
+
+Then(/^he should see details about that event$/) do
 	expect(page).to have_content(@event.title)
 	expect(page).to have_content(@event.description)
 end
 
 
-When(/^I am on that event's page$/) do
-	visit '/events/' + @event.id.to_s
+When(/^user is on that event's page$/) do
+	visit event_path(@event)
 end
 
-Then(/^I should see detailed stuff about event "(.*?)"$/) do |title|
-	@event = Event.find_by_title(title)
-
+Then(/^he should see detailed information about that event$/) do
 	expect(page).to have_content(@event.title)
 	#expect(page).to have_content(@event.starts_at.to_date != Date.today ? @event.starts_at.strftime("%A, %B %d, %Y") : distance_of_time_in_words(Time.now, @event.starts_at))
 	expect(page).to have_content(@event.place.place_name)
 	expect(page).to have_content(@event.description)
 end
 
-Given(/^There are a few events$/) do
+Given(/^there are events$/) do
 	@events = []
-	@events << FactoryGirl.create(:event)
 
-	random_user = User.all[0]				# FIXME: hard coded
+  random_user = User.all[0]
 	random_place = Place.all[0]	
 
-	@events << FactoryGirl.create(:event, title: Faker::Name.title, starts_at: Faker::Time.between(DateTime.now - 7, DateTime.now + 7), user: random_user, place: random_place, description: Faker::Hacker.say_something_smart)
+  4.times do
+	  @events << FactoryGirl.create(:event,
+                 :title => Faker::Name.title, 
+                 :starts_at => Faker::Time.between(DateTime.now - 7, DateTime.now + 7),
+                 :user => @user, 
+                 :place => random_place, 
+                 :description => Faker::Lorem.sentence
+               )
+  end
 end
 
-Then(/^Events should be sorted in ascending order$/) do
-	( Event.all.sort == @events ).should be true
+When(/^user is on a events page$/) do
+	visit events_path
 end
 
-When(/^User is on a events page$/) do
-	visit '/events'
+When(/^new event$/) do
+  visit new_event_path
 end
 
-When(/^He chooses to make a new event$/) do
-	@random_place = FactoryGirl.create(:place, place_name: Faker::Company.name, address: Faker::Address.street_address)
-	click_link 'New Event'
+When(/^he chooses "(.*?)"$/) do |option|
+  click_link option
 end
 
-Then(/^User should be redirected to a new event page$/) do
-	current_path.should == "/events/new"
-	
+When(/^he chooses "(.*?)" link$/) do |option|
+  within "#event_" << @event.id.to_s do
+	  click_link option
+  end
 end
 
-Given(/^User fills up information about new event$/) do	
+Then(/^user should be redirected to a new event form page$/) do
+	current_path.should == new_event_path
+end
+
+Then(/^user should be redirected to a edit event form page$/) do
+	current_path.should == edit_event_path(@events[0].id) 
+end
+
+Given(/^user fills up information about event$/) do	
 	fake_time = Faker::Time.between(DateTime.now - 7, DateTime.now + 7, :all)
 
-	@event = FactoryGirl.build(:event, title: Faker::Name.title, starts_at: fake_time, place: @random_place, user: @user, description: Faker::Lorem.sentence)
+	@event = FactoryGirl.build(:event, 
+              :title => Faker::Name.title, 
+              :starts_at => fake_time,
+              :place => @random_place, 
+              :user => @user,
+              :description => Faker::Lorem.sentence
+           )
 
 	fill_in "event_title", :with => @event.title
-	within :xpath, '//form/div[@class = "field"][2]' do	
-		select fake_time.year, from: "event_starts_at_1i" 
-		select fake_time.strftime("%B"), from: "event_starts_at_2i" 
-		select fake_time.day, from: "event_starts_at_3i" 
-		select fake_time.hour, from: "event_starts_at_4i" 
-		select fake_time.min, from: "event_starts_at_5i" 	
+	within "#starts_at"  do	
+		select fake_time.year, :from => "event_starts_at_1i" 
+		select fake_time.strftime("%B"), :from => "event_starts_at_2i" 
+		select fake_time.day, :from => "event_starts_at_3i" 
+		select date_form_format(fake_time.hour), :from => "event_starts_at_4i" 
+		select date_form_format(fake_time.min), :from => "event_starts_at_5i" 	
 	end
-	within :xpath, '//form/div[@class = "field"][3]' do		
-		select @event.place.place_name, from: "event_place_id"
-	end	
+  select @event.place.place_name, from: "event_place_id"
 	fill_in "event_description", :with => @event.description
-	find(:xpath, "//input[@id='event_user_id']").set @user.id
+	first("input#event_user_id", :visible => false).set @user.id
 end
 
-Given(/^Chooses to add newly created event$/) do
-	click_button 'Create Event' 
+Given(/^he chooses button "(.*?)"$/) do |option|
+	click_button option 
 end
 
-Then(/^He should see details about newly added event$/) do
+Then(/^he should see detailed page about event$/) do
 	expect(page).to have_content(@event.title)
 	expect(page).to have_content(@event.description)
 end
 
+Then(/^event should be deleted from database$/) do
+  sleep(1)                                          # otherwise, line bellow will fail even when it shouldn't
+  expect(Event.where(:id => @event.id).blank?).to eq true
+end
 
+When(/^he chooses to edit an event$/) do
+  within "#event_" << @events[0].id.to_s do
+    click_link "Edit"
+  end
+end
 
+Then(/^should see form filled with old information about event$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+def date_form_format num
+  num < 10 ? "0" << num.to_s : num.to_s
+end
