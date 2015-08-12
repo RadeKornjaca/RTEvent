@@ -15,13 +15,13 @@
 
   <tbody>
     <% @places.each do |place| %>
-      <tr id="<%= 'place_' + place.id.to_s %>">
+      <%= content_tag_for(:tr, place) do %>
         <td><%= place.place_name %></td>
         <td><%= place.address %></td>
         <td><%= link_to 'Show', place %></td>
         <td><%= link_to 'Edit', edit_place_path(place) %></td>
         <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

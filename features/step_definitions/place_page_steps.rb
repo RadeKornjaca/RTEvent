@@ -47,7 +47,7 @@ When(/^he chooses to "(.*?)" a place$/) do |option|
 end
 
 Then(/^he should have form fields filled with old informations$/) do
-  expect(current_path).to eq('/places/' << @place.id.to_s << '/edit') 
+  expect(current_path).to eq(edit_place_path(@place.id)) 
  
   expect(find_field("place_place_name").value).to have_content(@place.place_name)
   expect(find_field("place_address").value).to have_content(@place.address)
@@ -66,9 +66,8 @@ When(/^he updates that place with new informations$/) do
   click_button 'Update Place'
 end
 
-Then(/^place shouldn't be in database anymore$/) do
-  sleep(1)                                          # otherwise, line bellow will fail even when it shouldn't
-  expect(Place.where(:id => @place.id).blank?).to eq true
+Then(/^he shouldn't see it anymore$/) do
+  expect(page).to have_no_content(@place.place_name)
 end
 
 

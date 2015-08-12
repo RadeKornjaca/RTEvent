@@ -1,7 +1,6 @@
-# features/step_definitions/signup_login_steps.rb
 
 Given(/^user is on the homepage$/) do
-  visit home_index_path
+  visit root_path
 end
 
 Given(/^user exists$/) do

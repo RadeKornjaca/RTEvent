@@ -1,13 +1,8 @@
-# features/place_page.feature
 
 Feature: Place Page
 
-  Background: User is signed and logged in
-    Given user exists
-    And user is on the homepage
-    When he chooses to sign in
-    And he fills up form with his email and password
-    And clicks Sign in button    
+  Background: User is logged in
+    When user is logged in 
     And there are places
 
   Scenario: Viewing application's Place page
@@ -38,4 +33,4 @@ Feature: Place Page
     And he chooses to "Destroy" a place
     Then he should see alert asking "Are you sure?"
     When user confirms deletion
-    Then place shouldn't be in database anymore
+    Then he shouldn't see it anymore

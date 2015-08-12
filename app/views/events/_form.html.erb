@@ -21,14 +21,14 @@
   </div>
   <div class="field">
     <%= f.label :place %><br>
-    <%= f.select :place_id, options_from_collection_for_select(Place.all, :id, :place_name) %>
+    <%= f.select :place_id, options_from_collection_for_select(Place.all, :id, :place_name, @event.place_id) %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
   
-	<%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
 
   <div class="actions">
     <%= f.submit %>
