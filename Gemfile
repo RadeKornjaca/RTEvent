@@ -71,13 +71,15 @@ gem 'rails_12factor'
 # BDD testing
 group :development, :test do
   gem 'rspec-rails'
-	gem 'factory_girl_rails'
+  gem 'factory_girl_rails'
 end
 
 group :test do
   gem 'shoulda-matchers'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'faker'
+  gem 'selenium-webdriver'
 end
 
 
