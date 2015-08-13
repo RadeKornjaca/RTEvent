@@ -11,7 +11,3 @@ end
 Then(/^I should see events that are happening after "(.*?)"/) do
 
 end
-
-Then(/^events should be sorted in ascending order$/) do
-  titles = Event.order("starts_at desc").pluck(:title)
-end

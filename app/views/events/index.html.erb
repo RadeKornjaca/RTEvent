@@ -1,20 +1,21 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing events</h1>
 
 <div class="row">
-  <% @events.each do |event| %>
-    <%= content_tag_for(:div, event, :class => "col-xs-6 col-lg-4") do %>
-      <h2><%= event.title %></h2>
-      <p><%= event.description %></p>
-      <p><%= link_to 'Details', event, :class => 'btn btn-default' %>
-        <%= link_to 'Edit', edit_event_path(event)%>
-        <%- if event.user_id == current_user.id %>
-          <%= link_to 'Delete', event, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
-      </p>
-    <% end %>
-  <% end %>
+	<% @events.each do |event| %>
+		<div class="col-xs-6 col-lg-4">
+		  <h2><%= event.title %></h2>
+		  <p><%= event.description %></p>
+		  <p><%= link_to 'Details', event, :class => 'btn btn-default' %>
+		  	<%= link_to 'Edit', edit_event_path(event)%>
+		  	<%- if event.user_id == current_user.id %>
+		  		<%= link_to 'Delete', method: :delete, data: { confirm: 'Are you sure?' } %>
+		  	<% end %>
+		  </p>
+		</div>
+
+	    
+	    
+	<% end %>
 </div>
 <%= paginate @events %>
 

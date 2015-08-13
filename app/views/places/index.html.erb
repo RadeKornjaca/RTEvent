@@ -1,7 +1,5 @@
 <h1>Listing places</h1>
 
-<p id="notice"><%= notice %></p>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -15,13 +13,13 @@
 
   <tbody>
     <% @places.each do |place| %>
-      <%= content_tag_for(:tr, place) do %>
+      <tr>
         <td><%= place.place_name %></td>
         <td><%= place.address %></td>
         <td><%= link_to 'Show', place %></td>
         <td><%= link_to 'Edit', edit_place_path(place) %></td>
         <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% end %>
+      </tr>
     <% end %>
   </tbody>
 </table>
