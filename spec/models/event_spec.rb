@@ -6,14 +6,15 @@ RSpec.describe Event do
   it { is_expected.to have_db_column(:description) }
 
   it { is_expected.to have_db_index(:user_id) }
-  it { is_expected.to belong_to(:user) }
-
   it { is_expected.to have_db_index(:place_id) }
+
+  it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:place) }
 
   describe "predicate methods" do
     context "event's starting time was in the past" do
-      before(:each) do
+
+      before do
         @past_event = FactoryGirl.build(:event, :starts_at => DateTime.yesterday)
       end
 
@@ -32,7 +33,8 @@ RSpec.describe Event do
     end    
 
     context "event's starting time will happen in the future" do
-      before(:each) do
+
+      before do
         @future_event = FactoryGirl.build(:event, :starts_at => DateTime.tomorrow)
       end
 
@@ -53,3 +55,4 @@ RSpec.describe Event do
   end
 
 end
+
