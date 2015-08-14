@@ -4,4 +4,13 @@ class Event < ActiveRecord::Base
   has_many :comments
   
   paginates_per 9
+
+  def upcoming? 
+    DateTime.now < starts_at
+  end
+
+  def past? 
+    !upcoming?
+  end
+
 end
