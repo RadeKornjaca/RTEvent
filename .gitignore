@@ -17,3 +17,6 @@
 
 #should ignore stupid gedit temp files
 **/*~
+
+#should ignore vim's swap files
+**/*.swp
