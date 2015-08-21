@@ -27,7 +27,7 @@ RSpec.describe EventsController, :type => :controller do
       get :show, :id => 1
     end
 
-    it "has to show page with events" do
+    it "has to show page with single event details" do
       expect(response).to render_template("show")
     end
 
@@ -50,7 +50,7 @@ RSpec.describe EventsController, :type => :controller do
         post :create, :event => @event_params 
       end
 
-      it "should redirect to a page with that event's information" do
+      it "has to redirect to a page with that event's information" do
         expect(response).to redirect_to(event_path(@event)) 
       end
 
@@ -63,9 +63,10 @@ RSpec.describe EventsController, :type => :controller do
         post :create, :event => @event_params
       end
 
-      it "will render new event template" do
+      it "is going to render a new event template" do
         expect(response).to render_template("new")
       end
+
     end
 
   end
@@ -92,19 +93,22 @@ RSpec.describe EventsController, :type => :controller do
     end
 
     context "unsuccessful event update" do
+
       before do
         expect(@event).to receive(:update){ false }
         put :update, :id => 1, :event => @event_params
       end
 
-      it "should make user to fill the event form again" do
+      it "has to make user to fill the event form again" do
         expect(response).to render_template("edit")
       end
+
     end
 
   end
 
   describe "DELETE #destroy" do
+
     before do
       expect(Event).to receive(:find){ @event }
       expect(@event).to receive(:destroy)
@@ -112,9 +116,10 @@ RSpec.describe EventsController, :type => :controller do
       delete :destroy, :id => 1
     end
 
-    it "should redirect to events page" do
+    it "has to redirect to events page" do
       expect(response).to redirect_to(events_path)
     end
+
   end
 
 end

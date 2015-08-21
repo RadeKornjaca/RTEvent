@@ -38,13 +38,13 @@ RSpec.describe PlacesController, :type => :controller do
       allow(Place).to receive(:new){ @place }
       allow(@place).to receive(:class){ Place }
 
-      @place_params = { :place => { :place_name => "Alternativa", :address => "Sarajlijina 5" } }
+      @place_params = { :place_name => "Alternativa", :address => "Sarajlijina 5" }
     end 
     
     context "successful place creation" do
       before do
         expect(@place).to receive(:save){ true }
-        post :create, @place_params 
+        post :create, :place => @place_params 
       end
 
       it "has to redirect to that place's detailed page" do
@@ -55,7 +55,7 @@ RSpec.describe PlacesController, :type => :controller do
     context "unsuccessful place creation" do
       before do
         expect(@place).to receive(:save){ false }
-        post :create, @place_params
+        post :create, :place => @place_params
       end
 
       it "should make user to fill the form again" do
