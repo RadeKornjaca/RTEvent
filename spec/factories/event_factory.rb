@@ -4,8 +4,8 @@ FactoryGirl.define do
 	factory :event do |f| 
 		f.title "Zurka"
 		f.starts_at DateTime.now
-		place
-		user 
+    user
+    place
 		f.description "Strava provod"
 	end 
 end

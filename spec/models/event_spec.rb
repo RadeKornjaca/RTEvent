@@ -1,6 +1,6 @@
 require "rails_helper.rb"
 
-RSpec.describe Event do
+RSpec.describe Event, :type => :model do
   it { is_expected.to have_db_column(:title) }
   it { is_expected.to have_db_column(:starts_at) }
   it { is_expected.to have_db_column(:description) }
@@ -10,6 +10,10 @@ RSpec.describe Event do
 
   it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:place) }
+
+  it { is_expected.to validate_presence_of(:title) }
+  it { is_expected.to validate_presence_of(:user_id) }
+  it { is_expected.to validate_presence_of(:place_id) }
 
   describe "predicate methods" do
     context "event's starting time was in the past" do
