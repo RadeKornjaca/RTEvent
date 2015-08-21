@@ -8,7 +8,7 @@
 		  <p><%= link_to 'Details', event, :class => 'btn btn-default' %>
 		  	<%= link_to 'Edit', edit_event_path(event)%>
 		  	<%- if event.user_id == current_user.id %>
-		  		<%= link_to 'Delete', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+		  		<%= link_to 'Delete', event, :method => :delete, :data => { :confirm => 'Are you sure?' } %>
 		  	<% end %>
 		  </p>
 		<% end %>

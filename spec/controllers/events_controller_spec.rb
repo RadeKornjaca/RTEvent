@@ -40,15 +40,17 @@ RSpec.describe EventsController, :type => :controller do
       allow(@event).to receive(:class){ Event }
       allow(@user).to receive_message_chain(:events, :build){ @event }
 
-      @event_params = { :title => "Event", :place_id => 1, :description => "Description" }
+      @event_params = { :title => "Event", :starts_at => DateTime.now, :place_id => 1, :description => "Description" }
     end
 
     context "successful event creation" do 
 
       before do
         expect(@event).to receive(:save){ true }
+        expect(@user).to receive_message_chain(:events, :build){ @event }
         post :create, :event => @event_params 
       end
+
 
       it "has to redirect to a page with that event's information" do
         expect(response).to redirect_to(event_path(@event)) 
@@ -60,6 +62,7 @@ RSpec.describe EventsController, :type => :controller do
 
       before do
         expect(@event).to receive(:save){ false }
+        expect(@user).to receive_message_chain(:events, :build){ @event }
         post :create, :event => @event_params
       end
 
