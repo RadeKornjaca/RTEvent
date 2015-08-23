@@ -1,4 +1,3 @@
-# spec/factories/user_factory.rb 
 
 FactoryGirl.define do 
 	factory :user do |f|
